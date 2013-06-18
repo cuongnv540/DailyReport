@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Daily report <%= Time.now.to_date %></h1>
+    <h2>Group: <%= @user.group_id %></h2><br/><br/>
+    <% @users = User.find_by_sql("select *from users where group_id=#{@user.group_id} ") %>
+    <% @catalogs = Catalog.all %> 
+    <% @users.each do |user| %>
+      <% @reports= Report.find_by_sql("select *from reports where user_id=#{user.id} ") %>
+      User name: <B><%= user.name  %></B><br/> 
+      <% socot = 0 %>
+      <table border="1" >
+        <tr>
+          <th > Time | Catalog name </th>
+          <% @catalogs.each do |catalog| %>
+            <th style="font-size: 15px;"><%= catalog.title %></th>
+            <% socot = socot + 1 %>
+          <% end %>
+        </tr>
+        <tr>
+          <td><%= Time.now.strftime "%Y-%m-%d" %></td>
+            <% sosanh = 0 %>
+            <% while socot > 0 %>
+              <% sosanh = sosanh + 1 %> 
+              <td style=" font-size: 12px;">     
+                  <% @reports.each do |report| %>
+                    <% if report.created_at > Time.now.beginning_of_day && (report.catalog_id == sosanh)%>
+                         - <%= report.content %><br/><a href="http://localhost:3000/data/<%= report.file_name %>" target="_blank"><%= report.file_name %></a><br/>
+                    <% end %>
+                  <% end %>     
+              </td>
+              <% socot = socot - 1 %>
+            <% end %>
+        </tr>
+      </table>
+      <br/><br/>
+    <% end %>
+    <p>Thank you and have a great day!</p>
+  </body>
+</html>

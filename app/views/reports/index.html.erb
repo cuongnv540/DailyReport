@@ -1,0 +1,50 @@
+  <h1> Your Report </h1>
+
+  <div class="row">
+    <%= link_to 'Create report' , new_report_path , class: "btn", style: "position: relative; left: 2%; top: 19px"%>
+  </div></br></br></br>
+
+  <B> Yesterday reports: </B>
+  <table class="table1">
+    <tr>
+      <th>Create at</th>
+      <th>Catalog id</th>
+      <th>Content</th>
+      <th>Attack File</th>
+      <th>Setting</th>
+    </tr>
+    <% @reports.each do |report| %>
+      <% if ((Time.now - 1.day).end_of_day >= report.created_at )  &&  ((Time.now - 1.day).beginning_of_day < report.created_at ) %>
+        <tr>
+          <td><%= report.created_at.to_date %></td>
+          <td><%= report.catalog_id %></td>
+          <td><%= report.content %></td>
+          <td><a href="/data/<%=report.file_name%>" target="_blank"><%= report.file_name %></a></td>
+          <td><%= link_to 'Destroy', report, method: :delete , data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <%end%>  
+    <% end %>
+  </table></br></br></br>
+
+  <B> To day reports: </B>
+  <table class="table1">
+    <tr>
+      <th>Create at</th>
+      <th>Catalog id</th>
+      <th>Content</th>
+      <th>Attack File</th>
+     	<th>Setting</th>
+    </tr>
+    <% @reports.each do |report| %>
+      <% if report.created_at >= Time.now.beginning_of_day  %>
+        <tr>
+          <td><%= report.created_at.to_date %></td>
+          <td><%= report.catalog_id %></td>
+          <td><%= report.content %></td>
+          <td><a href="/data/<%=report.file_name%>" target="_blank"><%= report.file_name %></a></td>
+          <td><%= link_to 'Destroy', report, method: :delete , data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <%end%>  
+    <% end %>
+  </table>
+

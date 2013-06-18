@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <% user = User.find(params[:user_id]) %>
+  <% @catalogs = Catalog.all %>
+  <% index = params[:thoigian].to_i %>
+    <ss:Styles>
+        <ss:Style  ss:ID="1">
+            <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+            <ss:Font ss:FontName="Arial" ss:Bold="1" ss:Size="15" ss:Color="#000000"  />
+            <!-- dinh dang font chu , mau chu -->
+            <ss:Interior ss:Color="" ss:Pattern="Solid"/>
+            <!-- Dinh dang mau nen -->
+        </ss:Style>
+
+        <ss:Style ss:ID="2">
+            <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+            <ss:Borders>
+                <!-- Duong vien quanh o  -->
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top"/>
+            </ss:Borders>
+            <ss:Font ss:FontName="Arial" ss:Bold="1" ss:Size="12" ss:Color="#000000"  />
+        </ss:Style>
+
+        <ss:Style ss:ID="3">
+            <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+            <ss:Borders>
+                <!-- Duong vien quanh o  -->
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right"/>
+            </ss:Borders>
+            <ss:Font ss:FontName="Arial" ss:Bold="1" ss:Size="12" ss:Color="#000000"  />
+        </ss:Style>
+    </ss:Styles>
+
+  <Worksheet ss:Name="Report">
+    <Table >
+      <Column ss:AutoFitWidth="0" ss:Width="250" />
+      <!-- Dinh dang cac cot truoc khi ghi du lieu -->
+      <% @catalogs.each do |catalog| %>
+        <Column ss:AutoFitWidth="0" ss:Width="200" />
+      <% end %>
+      <!-- DOng dau username + Group-->
+      <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="1"  >
+        <Cell><Data ss:Type="String" ><%= "User name: " + user.name %></Data></Cell>
+        <Cell ><Data ss:Type="String"><%= "Group id:" + user.group_id.to_s %></Data></Cell>
+      </Row>
+      <% count_column = 0 %>
+       <!-- Dua vao time de tinh toan chuoi in ra -->
+      <% if index == 1 %>
+        <% current_time = Time.now.strftime "%Y-%m-%d" %>
+        <% start_day = Time.now.beginning_of_day  %>
+      <% elsif index == 7 %>
+        <% current_time = "Tuan tu: " + ( Time.now.at_beginning_of_week
+        .strftime "%Y-%m-%d" ) + " Den " + ( Time.now.at_end_of_week.strftime "%Y-%m-%d" )%>
+        <% start_day = Time.now.at_beginning_of_week %>
+      <% else %>
+      <% end %>
+      <!-- Dong 2 Time + Catalog name -->
+      <Row ss:AutoFitHeight="0" ss:Height="30" ss:StyleID="2">
+        <Cell><Data ss:Type="String">Time | Catalog</Data></Cell>
+        <% @catalogs.each do |catalog| %>
+          <Cell><Data ss:Type="String"><%= catalog.title %></Data></Cell>
+          <% count_column = count_column + 1 %>
+        <% end %>
+      </Row>
+      <!-- Dong 3 tro di in du lieu report -->
+      <!-- Tim reports theo id  -->
+      <% @reports = Report.find_by_sql("select *from reports where user_id=#{params[:user_id]} ") %>
+      <% tip = 0 %>
+
+      <% if index < 30 %>
+      <!-- In voi thoi gian la ngay hoac tuan -->
+        <% @reports.each do |report| %>
+          <% if report.created_at > start_day %>
+            <% count_column1 = count_column  %>
+            <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="2">  
+              <% if tip == 0 %>
+                <Cell><Data ss:Type="String"><%= current_time %></Data></Cell>
+                <% tip = tip + 1 %>
+              <% else %>
+                <Cell><Data ss:Type="String"></Data></Cell>
+              <% end %>
+              <% $i = report.catalog_id %>
+              <% column = count_column - $i %>
+              <% while $i > 1 do%>
+                <Cell><Data ss:Type="String"></Data></Cell>
+                <% $i = $i - 1%>
+              <% end %>
+                <Cell >
+                  <Data ss:Type="String" > <%= "Content: " + report.content %> </Data>
+                </Cell>
+              <% while column > 0 do %>
+                <Cell><Data ss:Type="String"></Data></Cell>
+                <% column = column - 1 %>
+              <% end %>
+            </Row>
+             <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="3">  
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <% $i = report.catalog_id %>
+              <% column = count_column1 - $i %>
+              <% while $i > 1 do%>
+                <Cell><Data ss:Type="String"></Data></Cell>
+                <% $i = $i - 1%>
+              <% end %>
+                <Cell ss:HRef="http://localhost:3000/data/<%= report.file_name %>" >
+                  <Data ss:Type="String"  > File download  </Data>
+                </Cell>
+              <% while column > 0 do %>
+                <Cell><Data ss:Type="String"></Data></Cell>
+                <% column = column - 1 %>
+              <% end %>
+            </Row>
+          <% end %>
+        <% end %>
+      <!-- Ket thuc if -->
+      <% else %>
+      <!-- Neu lenh in la thang -->
+        <% start_day =  Time.now.at_beginning_of_month.at_beginning_of_week %>
+        <% end_day = Time.now.at_beginning_of_month.end_of_week %>
+        <% while Time.now.month >= start_day.month && Time.now.year >= start_day.year  %>
+          <% tip = 0 %>
+          <% current_time = "Tuan tu: " + ( start_day.strftime "%Y-%m-%d" ) + " Den " + ( end_day.strftime "%Y-%m-%d" )%>
+            <% @reports.each do |report| %>
+              <% if report.created_at > start_day && report.created_at <= end_day %>
+                <% count_column1 = count_column  %>
+                <!-- In du lieu content -->
+                <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="2">  
+                  <% if tip == 0 %>
+                    <Cell><Data ss:Type="String"><%= current_time %></Data></Cell>
+                    <% tip = tip + 1 %>
+                  <% else %>
+                    <Cell><Data ss:Type="String"></Data></Cell>
+                  <% end %>
+                  <% $i = report.catalog_id %>
+                  <% column = count_column - $i %>
+                  <% while $i > 1 do%>
+                    <Cell><Data ss:Type="String"></Data></Cell>
+                    <% $i = $i - 1%>
+                  <% end %>
+                    <Cell >
+                      <Data ss:Type="String" > <%= "Content: " + report.content %> </Data>
+                    </Cell>
+                  <% while column > 0 do %>
+                    <Cell><Data ss:Type="String"></Data></Cell>
+                    <% column = column - 1 %>
+                  <% end %>
+                </Row>
+                <!-- In du lieu link file -->
+                <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="3">  
+                  <Cell><Data ss:Type="String"></Data></Cell>
+                  <% $i = report.catalog_id %>
+                  <% column = count_column1 - $i %>
+                  <% while $i > 1 do%>
+                    <Cell><Data ss:Type="String"></Data></Cell>
+                    <% $i = $i - 1%>
+                  <% end %>
+                    <Cell ss:HRef="http://localhost:3000/data/<%= report.file_name %>" >
+                      <Data ss:Type="String"  > File download  </Data>
+                    </Cell>
+                  <% while column > 0 do %>
+                    <Cell><Data ss:Type="String"></Data></Cell>
+                    <% column = column - 1 %>
+                  <% end %>
+                </Row>
+              <% end %>
+            <% end %>
+          <!-- Ket thuc vong lap in report . Tang start day den monday cua tuan tiep -->
+          <% start_day = start_day + 7.day %>
+          <% end_day = end_day + 7.day %>
+        <% end %>
+      <% end %> 
+    </Table>
+  </Worksheet>
+</Workbook>

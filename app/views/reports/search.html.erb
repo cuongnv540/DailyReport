@@ -1,0 +1,47 @@
+<h1>Advanced Search</h1>
+<h2> At Group: <%= current_user.group_id %> </h2>
+
+<%= search_form_for @search, url: search_reports_path, html: {method: :post} do |f| %>
+  <div >
+    <div class="class_s" >
+    	<%= f.label :user_id_cont, "User Id :" %>
+      <%= f.text_field :user_id_cont %>
+    </div>
+    <div class="class_s" style=" padding-left: 50px ">
+      <%= f.label :user_name_cont, "User name : " %>
+      <%= f.text_field :user_name_cont %>
+    </div>
+  </div> <div style="clear: both"></div>
+  <!-- ham eq co chuc nang tra ve cac records ma co field co gia tri chinh xac = gia tri nhap vao o day neu dung cont thi gia tri catalog_id se la string . De nhan integer phai dung eq -->
+  <div >
+    <div class="class_s" >
+      <%= f.label :catalog_id_eq, "Catalog Id : " %>
+      <%= f.text_field :catalog_id_eq %>
+    </div>
+    <div class="class_s" style=" padding-left: 50px ">
+      <%= f.label :content_cont, "Content : " %>
+      <%= f.text_field :content_cont %>
+    </div>
+  </div> <div style="clear: both"></div>
+  <!-- Tim nhung thang co thoi gian tao > thoi gian nhap vao -->
+  <div>
+    <div class="class_s" >
+      <%= f.label :created_at_gteq, "Created after (yyyy-mm-dd) : " %>
+      <%= f.text_field :created_at_gteq %>
+    </div>
+    <div class="class_s" style=" padding-left: 50px">
+      <%= f.label :created_at_lteq, "Created before (yyyy-mm-dd) : " %>
+      <%= f.text_field :created_at_lteq %>
+     </div>
+  </div><div style="clear: both"></div>
+  <!-- tim theo group -->
+  <div class="class_s">
+    <%= f.label :user_group_id_eq, "Group: " %>
+    <%= f.text_field :user_group_id_eq %>
+  </div><div style="clear: both"></div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>
+
+<% if params[:q] != nil %>
+<%= render 'results' %>
+<%end%>

@@ -1,0 +1,27 @@
+  <h1>New Report</h1>
+
+  <%= form_for @report, :html => { :multipart => true } do |f| %>
+  <%= render 'shared/error_messages' , object: f.object %>
+
+  <div id = "mainreport" > 
+  	<div class="field" > 
+    <%= f.label :catalog_id %><br />
+    <%= f.collection_select :catalog_id,
+    Catalog.all, :id, :title, {include_blank: true }, {:class=>'report_new'}    %>
+  </div> 
+
+  <div class="field">
+  <%= f.label :content %>
+  <%= f.text_area :content , :rows => 5, :cols => 30 %>
+  </div>
+
+  <label for="up">Add File attach</label>
+   	  <%= file_field 'upload', 'datafile' %>
+   	</br>
+
+  <%= f.submit "Create Report", class: "btn btn-large btn-primary" %>
+  <%= link_to 'Back' , reports_path , class: "btn btn-large btn-primary"%>
+  
+  <% end %>
+
+ 

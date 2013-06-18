@@ -1,0 +1,167 @@
+  <% provide(:title, "Report Group") %> 
+  <% ten = Group.find_by_sql("select *from groups where group_id = #{current_user.group_id} ")
+  %>
+  <h1> Group: <%=current_user.group_id%> - <%= ten[0].name %>  </h1>
+  <h2> For only Manager </h2>
+<!-- Slect tag -->
+  <% chon0 = nil %> <% chon1 = nil %> <% chon2 = nil %> <% chon3 = nil %>
+  <% if params[:choose] == '1'%>
+    <% chon1 = "selected" %>
+  <% elsif params[:choose] == '2'%>
+    <% chon2 = "selected" %>
+  <% elsif params[:choose] == '3'%>
+    <% chon3 = "selected" %>
+  <% else %>
+    <% chon0 = "selected" %>
+  <% end %>
+  Search : 
+  <%= form_tag(manager_report_path, :id => "form123") do %>  
+  <select name="choose" class="select" >      
+      <option value="0" <%=chon0%> >Select</option>
+      <option value="1" <%=chon1%> >To day</option>
+      <option value="2" <%=chon2%> > Week</option>
+      <option value="3" <%=chon3%> > Month</option>
+    </select>
+  <% end %>
+<!-- link to advance search -->
+  <div class="row">
+    <%= link_to 'Advanced search' , search_reports_path , class: "btn", style: "position: relative; left: 2%; top: 19px"%>
+  </div>
+<!-- javascrip -->
+  <script type="text/javascript">
+    var drop = $('.select');
+    drop.change(function(){
+      var form = $('#form123');
+      form.submit();
+    });
+  </script>
+  <br/><br/><br/>
+<!-- Xac dinh chuoi xuat ra cung bang -->
+  <% if @time > 0 %>
+    <% if @time == 1 %>
+      <% chuoi = " Curren day reports: " %>
+      <% chuoi1 = " Last day reports: " %> 
+      <% current_time = Time.now.strftime "%Y-%m-%d" %>
+      <% last_time = (Time.now - 1.day).strftime "%Y-%m-%d" %>
+      <% start_day = Time.now.beginning_of_day  %>
+    <% elsif @time == 7 %>
+      <% chuoi = " This week reports: " %>
+      <% chuoi1 = " Last week reports: " %>
+      <% current_time = "Tuan tu: " + ( Time.now.at_beginning_of_week
+      .strftime "%Y-%m-%d" ) + " Den " + ( Time.now.at_end_of_week.strftime "%Y-%m-%d" )%>
+      <% last_time = "Tuan tu:" + ((Time.now.at_beginning_of_week - 7.day).strftime "%Y-%m-%d") + " Den " + ((Time.now.at_beginning_of_week - 1.day).strftime "%Y-%m-%d") %>
+      <% start_day = Time.now.at_beginning_of_week %>
+    <% elsif @time == 30 %>
+      <% chuoi = " This month reports: " %>
+      <% chuoi1 = " Last month reports: " %>
+    <% else %>
+      <% chuoi = "" %>
+      <% chuoi1 = "" %>
+  <% end %>
+<!--  -->
+  <% @catalogs = Catalog.all %>
+  <% @user.each do |user| %>
+  <!-- lua chon loc report theo ngay or theo tuan , thang -->
+  <!-- <% @reports= Report.where('created_at > ? AND user_id = ?', (Time.now - 48.hour), user.id)  %> -->
+  <% @reports= Report.find_by_sql("select *from reports where user_id=#{user.id} ") %>
+  User name: <B><%= user.name  %></B><br/> 
+<!-- Neu theo ngay hay tuan thi in ra bang du lieu cua tuan truoc or ngay truoc de so sanh -->
+  <% if @time < 30 %>
+    <% socot = 0 %>
+    <%= chuoi1 %><br/>
+    <table class="table1" width="100%">
+        <tr>
+          <th > Time | Catalog name </th>
+          <% @catalogs.each do |catalog| %>
+            <th><%= catalog.title %></th>
+            <% socot = socot + 1 %>
+          <% end %>
+        </tr><br/>  
+      <tr>
+        <td><span class="col1"><%= last_time %></span></td>
+          <% sosanh = 0 %>
+          <% while socot > 0 %>
+            <% sosanh = sosanh + 1 %> 
+            <td> 
+              <!-- <div class="dkm"> -->
+                <% @reports.each do |report| %>
+                  <% if ( report.created_at < start_day ) && report.created_at > (start_day - @time.day) && (report.catalog_id == sosanh) %>
+                       - <%= report.content %><br/><a href="/data/<%=report.file_name%>" target="_blank"><%= report.file_name %></a><br/>
+                  <% end %>
+                <% end %>
+              <!-- </div> -->
+            </td>
+            <% socot = socot - 1 %>
+          <% end %>
+      </tr>
+    </table>
+    <br/><br/>
+  <% end %>
+  <!-- In cac report trong current @time -->
+  <% socot1 = 0 %>
+  <%= chuoi %><br/>
+  <table class="table1">
+    <tr>
+      <th>Time | Catalog name </th>
+      <% @catalogs.each do |catalog| %>
+        <th>
+          <%= catalog.title %>
+        </th>
+        <% socot1 = socot1 + 1 %>
+      <% end %>
+    </tr><br/>  
+  <!-- So sanh xem report dc khoi tao luc nao . Neu truoc qua 1 ngay thi ko in ra -->
+    <% if @time < 30 %>
+      <tr>
+        <td><%= current_time %></td>
+          <% sosanh1 = 0 %>
+          <% while socot1 > 0 %>
+            <% sosanh1 = sosanh1 + 1 %> 
+            <td >
+              <!-- <div class="dkm"> -->
+              <% @reports.each do |report| %>
+                <% if  (report.created_at > start_day) && (report.catalog_id == sosanh1) %>
+                 -<%= report.content %><br/>
+                  <a href="/data/<%=report.file_name%>" target="_blank"><%= report.file_name %></a></br>
+                <% end %>
+              <% end %>
+            <!-- </div> -->
+            </td>
+            <% socot1 = socot1 - 1 %>
+          <% end %>
+      </tr>
+    <% else %>
+      <% start_day =  Time.now.at_beginning_of_month.at_beginning_of_week %>
+      <% end_day = Time.now.at_beginning_of_month.end_of_week %>
+      <% while Time.now.month >= start_day.month && Time.now.year >= start_day.year  %>
+        <% u = socot1 %>
+        <% current_time = "Tuan tu: " + ( start_day.strftime "%Y-%m-%d" ) + " Den " + ( end_day.strftime "%Y-%m-%d" )%> 
+        <tr>
+          <td><%= current_time %></td>
+          <% sosanh1 = 0 %>
+          <% while u > 0 %>
+            <% sosanh1 = sosanh1 + 1 %> 
+            <td>
+              <% @reports.each do |report| %>
+                <% if  (report.created_at > start_day) && (report.created_at <= end_day) && (report.catalog_id == sosanh1) %>
+                 -<%= report.content %><br/>
+                  <a href="/data/<%=report.file_name%>" target="_blank"><%= report.file_name %></a></br>
+                <% end %>
+              <% end %>
+            </td>
+            <% u = u - 1 %>
+          <% end %>  
+        </tr>
+        <% start_day = start_day + 7.day %>
+        <% end_day = end_day + 7.day %>
+      <% end %>
+    <% end %>
+  </table>
+  <%= link_to 'Export This member', report_member_path({format:'xls', user_id: user.id , thoigian: @time }) %> 
+  <br/><br/></br>
+
+  <% end %>
+  <!-- Truyen 2 tham so  -->
+  Report all : <%= link_to 'Export All', report_all_path({format:'xls', group: current_user.group_id, 
+  thoigian: @time}) %>
+  <% end %>

@@ -1,0 +1,22 @@
+<h1> List Groups </h1>
+
+<table class="table1">
+  <tr>
+    <th>ID</th>
+   	<th>Group ID</th>
+   	<th>Name</th>
+    <th>Setting</th>
+  </tr>
+<% @groups.each do |group| %>
+  <tr>
+    <td><%= group.id %></td>
+    <td><%= group.group_id %></td>
+    <td><%= group.name %></td>
+    <td><%= link_to 'Destroy', group, method: :delete , data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<div class="row">
+	<%= link_to 'Create group' , new_group_path , class: "btn", style: "position: relative; left: 2%; top: 19px"%>
+</div>

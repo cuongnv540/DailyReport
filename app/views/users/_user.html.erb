@@ -1,0 +1,27 @@
+<li>
+  <table class"table1" border="1">
+    <tr>
+      <th> <div id="dkm"> Avatar </div></th>
+      <th> <div id="dkm"> User  </div> </th>
+      <% if current_user.admin? && !current_user?(user) %> 
+        <th> <div id="dkm"> Setting </div></th>
+      <% end %> 
+    </tr>
+    <tr>
+      <td><%= gravatar_for user %></td>
+      <td><%= link_to user.name, user %></td>
+      <% if current_user.admin? && !current_user?(user) %>
+        <td><div id="dkm"> 
+          <div class="cart">
+            <%= link_to 'Delete' ,user_path(user), method: :delete,class: "btn btn-small btn-primary btn_short",data: { confirm: "You sure?" }%>
+            <%= link_to 'Edit', define_path(user), class: "btn btn-small btn-primary
+             btn_short"%>
+            <% if !user.active %>
+              <%= link_to 'Active now' ,active_path(user),class: "btn btn-small btn-primary btn_short",data: { confirm: "You sure?" }%>
+            <% end %>
+          </div>
+        </div></td>
+      <% end %>
+    </tr>
+  </table>
+</li>

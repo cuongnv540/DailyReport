@@ -1,0 +1,19 @@
+<% provide(:title, 'Create Group') %>
+<h1>New Group</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@group) do |f| %>
+    <%= render 'shared/error_messages' , object: f.object %>
+
+      <%= f.label :group_id %>
+      <%= f.text_field :group_id %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    
+      <%= f.submit "Create Group", class: "btn btn-large btn-primary" %>
+      <%= link_to 'Back' , groups_path , class: "btn btn-large btn-primary"%>
+    <% end %>
+  </div>
+</div>
