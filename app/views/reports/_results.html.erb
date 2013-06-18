@@ -1,0 +1,23 @@
+<!-- <p>SQL: <%= @reports.to_sql %></p> -->
+  <h2>Your results</h2>
+  <table class="table1">
+    <thead>
+    	<th><%= sort_link @search, :id, {}, :method => action_name == 'search' ? :post : :get %></th>
+      <th><%= sort_link @search, :catalog_id, {}, :method => action_name == 'search' ? :post : :get %></th>
+      <th><%= sort_link @search, :user_id, {}, :method => action_name == 'search' ? :post : :get %></th>
+      <th><%= sort_link @search, :content, {}, :method => action_name == 'search' ? :post : :get %></th>
+      <th><%= sort_link @search, :created_at, {}, :method => action_name == 'search' ? :post : :get %></th>
+    </thead>
+    <tbody>
+      <% @reports.each do |report| %>
+        <tr>
+        	<td><%= report.id %></td>
+          <td><%= report.catalog_id %></td>
+          <td><%= report.user_id %></td>
+          <td><%= report.content %></td>
+          <td><%= report.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'Export Results To Exel File', report_results_path({format:'xls', tim: params[:q]}) %>

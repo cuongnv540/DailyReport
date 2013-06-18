@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+    <ss:Styles>
+        <ss:Style  ss:ID="1">
+            <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+            <ss:Font ss:FontName="Arial" ss:Bold="1" ss:Size="15" ss:Color="#000000"  />
+            <!-- dinh dang font chu , mau chu -->
+            <ss:Interior ss:Color="" ss:Pattern="Solid"/>
+            <!-- Dinh dang mau nen -->
+        </ss:Style>
+
+        <ss:Style ss:ID="2">
+            <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+            <ss:Borders>
+                <!-- Duong vien quanh o  -->
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top"/>
+            </ss:Borders>
+            <ss:Font ss:FontName="Arial" ss:Bold="1" ss:Size="12" ss:Color="#000000"  />
+        </ss:Style>
+
+        <ss:Style ss:ID="3">
+            <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+            <ss:Borders>
+                <!-- Duong vien quanh o  -->
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right"/>
+            </ss:Borders>
+            <ss:Font ss:FontName="Arial" ss:Bold="1" ss:Size="12" ss:Color="#000000"  />
+        </ss:Style>
+    </ss:Styles>
+
+  <Worksheet ss:Name="Report">
+    <Table >
+      <Column ss:AutoFitWidth="0" ss:Width="250" />
+      <!-- Dinh dang cac cot truoc khi ghi du lieu -->
+        <Column ss:AutoFitWidth="0" ss:Width="200" />
+        <Column ss:AutoFitWidth="0" ss:Width="200" />
+        <Column ss:AutoFitWidth="0" ss:Width="200" />
+        <Column ss:AutoFitWidth="0" ss:Width="200" />
+        <Column ss:AutoFitWidth="0" ss:Width="200" />
+          <!-- DOng dau username + Group-->
+      <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="1"  >
+        <Cell><Data ss:Type="String" >User name: aflk111111111111</Data></Cell>
+        <Cell ><Data ss:Type="String">Group id:2</Data></Cell>
+      </Row>
+      <!-- Dong 2 Time + Catalog name -->
+      <Row ss:AutoFitHeight="0" ss:Height="30" ss:StyleID="2">
+        <Cell><Data ss:Type="String"> Time </Data></Cell>
+          <Cell><Data ss:Type="String">catalog 1</Data></Cell>
+          <Cell><Data ss:Type="String">catalog 2</Data></Cell>
+          <Cell><Data ss:Type="String">catalog 3</Data></Cell>
+          <Cell><Data ss:Type="String">catalog 4</Data></Cell>
+          <Cell><Data ss:Type="String">Chuyen muc so 5</Data></Cell>
+      </Row>
+      <!-- Dong 3 tro di in du lieu report -->
+
+
+          <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="2">  
+            <Cell><Data ss:Type="String">Last update: 2013-06-07 04:05:51 UTC</Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell >
+                <Data ss:Type="String" > Content: day la bao cao so 2 cua 4 </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+           <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="3">  
+            <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell ss:HRef="http://localhost:3000/data/902033_360496597384924_1232578494_o.jpg" >
+                <Data ss:Type="String" > File download </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+
+
+          <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="2">  
+            <Cell><Data ss:Type="String">Last update: 2013-06-08 01:40:37 UTC</Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell >
+                <Data ss:Type="String" > Content: helo every where </Data>
+              </Cell>
+          </Row>
+
+           <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="3">  
+            <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell ss:HRef="http://localhost:3000/data/download (1).jpg" >
+                <Data ss:Type="String" > File download </Data>
+              </Cell>
+          </Row>
+
+
+
+          <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="2">  
+            <Cell><Data ss:Type="String">Last update: 2013-06-10 02:39:06 UTC</Data></Cell>
+              <Cell >
+                <Data ss:Type="String" > Content: bao cao so 1 10/6 </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+           <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="3">  
+            <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell ss:HRef="http://localhost:3000/data/download.jpg" >
+                <Data ss:Type="String" > File download </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+
+
+          <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="2">  
+            <Cell><Data ss:Type="String">Last update: 2013-06-12 02:02:51 UTC</Data></Cell>
+              <Cell >
+                <Data ss:Type="String" > Content: 12/06/2013 Chia sẻ với báo chí sau khi kết quả kiểm phiếu được công bố sáng 11/6, nhiều đại biểu Quốc hội nhìn nhận, việc đánh giá tín nhiệm ở bước &quot;thăm dò&quot; đã diễn ra khách quan. Kết quả phản ánh khá sát với diễn biến thực tế của đời sống kinh tế xã hội.  Tuy nhiên, không ít đại biểu bày tỏ băn khoăn. Đại biểu Trịnh Thị Thanh Bình (Chánh án TAND tỉnh Bến Tre) cho biết, dù là người đánh giá tín nhiệm nhưng vẫn không tránh khỏi việc thấy thiếu thông tin cũng như chưa đủ am hiểu hết các hoạt động của những người được lấy phiếu, đặc biệt trong khối quản lý điều hành. </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+           <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="3">  
+            <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell ss:HRef="http://localhost:3000/data/download.jpg" >
+                <Data ss:Type="String" > File download </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+
+
+          <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="2">  
+            <Cell><Data ss:Type="String">Last update: 2013-06-12 02:53:02 UTC</Data></Cell>
+              <Cell >
+                <Data ss:Type="String" > Content: 12/06/2013 </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+           <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="3">  
+            <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell ss:HRef="http://localhost:3000/data/download (1).jpg" >
+                <Data ss:Type="String" > File download </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+
+
+          <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="2">  
+            <Cell><Data ss:Type="String">Last update: 2013-06-12 06:31:19 UTC</Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell >
+                <Data ss:Type="String" > Content: dsffdsfsdfdsfsdfdsfds </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+           <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="3">  
+            <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell ss:HRef="http://localhost:3000/data/902033_360496597384924_1232578494_o.jpg" >
+                <Data ss:Type="String" > File download </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+
+
+          <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="2">  
+            <Cell><Data ss:Type="String">Last update: 2013-06-13 01:42:43 UTC</Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell >
+                <Data ss:Type="String" > Content: Day la report cua catalog 3 
+13/6/2013 </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+           <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="3">  
+            <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell ss:HRef="http://localhost:3000/data/download (1).jpg" >
+                <Data ss:Type="String" > File download </Data>
+              </Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <Cell><Data ss:Type="String"></Data></Cell>
+          </Row>
+
+    </Table>
+  </Worksheet>
+</Workbook>

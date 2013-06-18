@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <% @catalogs = Catalog.all %>
+    <ss:Styles>
+        <ss:Style  ss:ID="1">
+            <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+            <ss:Font ss:FontName="Arial" ss:Bold="1" ss:Size="15" ss:Color="#000000"  />
+            <!-- dinh dang font chu , mau chu -->
+            <ss:Interior ss:Color="" ss:Pattern="Solid"/>
+            <!-- Dinh dang mau nen -->
+        </ss:Style>
+
+        <ss:Style ss:ID="2">
+            <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+            <ss:Borders>
+                <!-- Duong vien quanh o  -->
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Top"/>
+            </ss:Borders>
+            <ss:Font ss:FontName="Arial" ss:Bold="1" ss:Size="12" ss:Color="#000000"  />
+        </ss:Style>
+
+        <ss:Style ss:ID="3">
+            <ss:Alignment ss:Horizontal="Center" ss:Vertical="Center" ss:WrapText="1"/>
+            <ss:Borders>
+                <!-- Duong vien quanh o  -->
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Bottom"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Left"/>
+                <Border ss:Color="#000000" ss:Weight="1" ss:LineStyle="Continuous" ss:Position="Right"/>
+            </ss:Borders>
+            <ss:Font ss:FontName="Arial" ss:Bold="1" ss:Size="12" ss:Color="#000000"  />
+        </ss:Style>
+    </ss:Styles>
+
+  <Worksheet ss:Name="Report">
+    <Table >
+      <Column ss:AutoFitWidth="0" ss:Width="250" />
+      <!-- Dinh dang cac cot truoc khi ghi du lieu -->
+     <% @catalogs.each do |catalog| %>
+        <Column ss:AutoFitWidth="0" ss:Width="200" />
+      <% end %>
+          <!-- DOng dau username + Group-->
+      <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="1"  >
+        <Cell><Data ss:Type="String" >Results</Data></Cell>
+        <Cell ><Data ss:Type="String"><%= (Time.now.strftime "%Y-%m-%d") %></Data></Cell>
+      </Row>
+      <% count_column = 0 %>
+      <!-- Dong 2 Time + Catalog name -->
+      <Row ss:AutoFitHeight="0" ss:Height="30" ss:StyleID="2">
+        <Cell><Data ss:Type="String"> Time </Data></Cell>
+        <% @catalogs.each do |catalog| %>
+          <Cell><Data ss:Type="String"><%= catalog.title %></Data></Cell>
+          <% count_column = count_column + 1 %>
+        <% end %>
+      </Row>
+      <!-- Dong 3 tro di in du lieu report -->
+      <% @reports.each do |report| %>
+          <% count_column1 = count_column  %>
+
+          <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="2">  
+            <Cell><Data ss:Type="String"><%= "Last update: " + (report.updated_at.strftime "%Y-%m-%d") %></Data></Cell>
+            <% $i = report.catalog_id %>
+            <% column = count_column - $i %>
+            <% while $i > 1 do%>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <% $i = $i - 1%>
+            <% end %>
+              <Cell >
+                <Data ss:Type="String" > <%= "Content: " + report.content %> </Data>
+              </Cell>
+            <% while column > 0 do %>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <% column = column - 1 %>
+            <% end %>
+          </Row>
+
+           <Row ss:AutoFitHeight="0" ss:Height="50" ss:StyleID="3">  
+            <Cell><Data ss:Type="String"></Data></Cell>
+            <% $i = report.catalog_id %>
+            <% column = count_column1 - $i %>
+            <% while $i > 1 do%>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <% $i = $i - 1%>
+            <% end %>
+              <Cell ss:HRef="http://localhost:3000/data/<%= report.file_name %>" >
+                <Data ss:Type="String" > File download </Data>
+              </Cell>
+            <% while column > 0 do %>
+              <Cell><Data ss:Type="String"></Data></Cell>
+              <% column = column - 1 %>
+            <% end %>
+          </Row>
+
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

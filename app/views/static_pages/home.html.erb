@@ -1,0 +1,32 @@
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+        <%= render 'shared/micropost_form' %>
+      </section>
+    </aside>
+    <div class="span8">
+      <h3>Status</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>  
+<% else %>
+  <div class="center hero-unit">
+    <h1>Welcome to the Daily Report</h1>
+
+    <img src="http://i198.photobucket.com/albums/aa172/giangdaytructuyen/thuthuatchoblogger/animation_thumb.gif" />
+
+    <h2>
+      This is the home page for the
+      <a href="http://framgia.com/vn/company/vn/index.html">Framgia Company</a>
+    </h2>
+
+    <%= link_to "Sign up now!", signup_path, 
+                                class: "btn btn-large btn-primary" %>
+  </div>
+<!-- <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %> -->
+  
+<% end %> 
